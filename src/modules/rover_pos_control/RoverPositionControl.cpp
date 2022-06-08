@@ -303,10 +303,29 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 							       (double)curr_wp(0), (double)curr_wp(1));
 
 				if (dist_between_waypoints > 0) {
-					_pos_ctrl_state = GOTO_WAYPOINT; // A new waypoint has arrived go to it
+					_pos_ctrl_state = TURNING; // A new waypoint has arrived go to it
 				}
 
 				//PX4_INFO(" Distance between prev and curr waypoints %f", (double)dist_between_waypoints);
+			}
+			break;
+
+		case TURNING : {
+				_act_controls.control[actuator_controls_s::INDEX_THROTTLE] = 0.0f;
+				float bearing_to_next_waypoint = get_bearing_to_next_waypoint((double) _prev_wp(0), (double)_prev_wp(1),
+								(double)curr_wp(0), (double)curr_wp(1));
+				float turning_threshold = (0.25f * M_PI_F);
+
+				// When the robot is within the threshold for turning mode, start going to the next waypoint
+				if (bearing_to_next_waypoint < turning_threshold || bearing_to_next_waypoint > (2 * M_PI_F) - turning_threshold) {
+					_pos_ctrl_state = GOTO_WAYPOINT;
+				} else {
+					if (bearing_to_next_waypoint > M_PI_F) {
+						_act_controls.control[actuator_controls_s::INDEX_YAW] = -1;
+					} else {
+						_act_controls.control[actuator_controls_s::INDEX_YAW] = 1;
+					}
+				}
 			}
 			break;
 
