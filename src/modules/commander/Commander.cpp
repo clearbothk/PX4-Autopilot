@@ -78,6 +78,7 @@
 
 #include <uORB/topics/mavlink_log.h>
 #include <uORB/topics/tune_control.h>
+#include <parameters/param.h>
 
 typedef enum VEHICLE_MODE_FLAG {
 	VEHICLE_MODE_FLAG_CUSTOM_MODE_ENABLED = 1, /* 0b00000001 Reserved for future use. | */
@@ -1524,6 +1525,12 @@ Commander::handle_command(const vehicle_command_s &cmd)
 
 			break;
 		}
+
+	case vehicle_command_s::VEHICLE_CMD_DO_SET_PARAMETER: {
+			param_set((int)cmd.param1, &(cmd.param2));
+			break;
+		}
+
 
 	case vehicle_command_s::VEHICLE_CMD_START_RX_PAIR:
 	case vehicle_command_s::VEHICLE_CMD_CUSTOM_0:

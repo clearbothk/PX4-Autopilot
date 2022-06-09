@@ -145,7 +145,7 @@ def main():
 
     mav_serialport.write('\n') # make sure the shell is started
 
-    mav_serialport.write('micrortps_client start -d /dev/ttyS2\n')
+    mav_serialport.write('micrortps_client start -d /dev/ttyS2 -b 1000000\n')
 
 if __name__ == '__main__':
     main()
