@@ -283,7 +283,7 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 				} else {
 					_gnd_control.navigate_waypoints(prev_wp, curr_wp, current_position, ground_speed_2d);
 
-					if (math::abs_t(_gnd_control.bearing_error()) > M_PI_F * 0.25) {
+					if (math::abs_t(_gnd_control.bearing_error()) > M_PI_F * 0.25f) {
 						_pos_ctrl_state = TURNING;
 
 					} else {
@@ -319,7 +319,7 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 
 				// Update the parameters while turning.
 				_gnd_control.navigate_waypoints(prev_wp, curr_wp, current_position, ground_speed_2d);
-				if (math::abs_t(_gnd_control.bearing_error()) < 0.25f * M_PI_F) {
+				if (math::abs_t(_gnd_control.bearing_error()) <  M_PI_F * 0.25f) {
 					_pos_ctrl_state = GOTO_WAYPOINT;
 				} else {
 					if ( _gnd_control.bearing_error() > 0) {
