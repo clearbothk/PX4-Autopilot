@@ -283,14 +283,17 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 				} else {
 					_gnd_control.navigate_waypoints(prev_wp, curr_wp, current_position, ground_speed_2d);
 
-					_act_controls.control[actuator_controls_s::INDEX_THROTTLE] = mission_throttle;
+					if (math::abs_t(_gnd_control.bearing_error()) > M_PI_F * 0.25) {
+						_pos_ctrl_state = TURNING;
 
-					float desired_r = ground_speed_2d.norm_squared() / math::abs_t(_gnd_control.nav_lateral_acceleration_demand());
-					float desired_theta = (0.5f * M_PI_F) - atan2f(desired_r, _param_wheel_base.get());
-					float control_effort = (desired_theta / _param_max_turn_angle.get()) * sign(
-								       _gnd_control.nav_lateral_acceleration_demand());
-					control_effort = math::constrain(control_effort, -1.0f, 1.0f);
-					_act_controls.control[actuator_controls_s::INDEX_YAW] = control_effort;
+					} else {
+						_act_controls.control[actuator_controls_s::INDEX_THROTTLE] = mission_throttle;
+						float desired_r = ground_speed_2d.norm_squared() / math::abs_t(_gnd_control.nav_lateral_acceleration_demand());
+						float desired_theta = (0.5f * M_PI_F) - atan2f(desired_r, _param_wheel_base.get());
+						float control_effort = (desired_theta / _param_max_turn_angle.get()) * sign(_gnd_control.nav_lateral_acceleration_demand());
+						control_effort = math::constrain(control_effort, -1.0f, 1.0f);
+						_act_controls.control[actuator_controls_s::INDEX_YAW] = control_effort;
+					}
 				}
 			}
 			break;
@@ -312,18 +315,19 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 
 		case TURNING : {
 				_act_controls.control[actuator_controls_s::INDEX_THROTTLE] = 0.0f;
-				float bearing_to_next_waypoint = get_bearing_to_next_waypoint((double) _prev_wp(0), (double)_prev_wp(1),
-								(double)curr_wp(0), (double)curr_wp(1));
-				float turning_threshold = (0.25f * M_PI_F);
-
 				// When the robot is within the threshold for turning mode, start going to the next waypoint
-				if (bearing_to_next_waypoint < turning_threshold || bearing_to_next_waypoint > (2 * M_PI_F) - turning_threshold) {
+
+				// Update the parameters while turning.
+				_gnd_control.navigate_waypoints(prev_wp, curr_wp, current_position, ground_speed_2d);
+				if (math::abs_t(_gnd_control.bearing_error()) < 0.25f * M_PI_F) {
 					_pos_ctrl_state = GOTO_WAYPOINT;
 				} else {
-					if (bearing_to_next_waypoint > M_PI_F) {
+					if ( _gnd_control.bearing_error() > 0) {
 						_act_controls.control[actuator_controls_s::INDEX_YAW] = -1;
-					} else {
+					} else if(_gnd_control.bearing_error() < 0){
 						_act_controls.control[actuator_controls_s::INDEX_YAW] = 1;
+					} else {
+						_pos_ctrl_state = GOTO_WAYPOINT;
 					}
 				}
 			}
