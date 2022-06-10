@@ -323,9 +323,9 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 					_pos_ctrl_state = GOTO_WAYPOINT;
 				} else {
 					if ( _gnd_control.bearing_error() > 0) {
-						_act_controls.control[actuator_controls_s::INDEX_YAW] = -1;
-					} else if(_gnd_control.bearing_error() < 0){
 						_act_controls.control[actuator_controls_s::INDEX_YAW] = 1;
+					} else if(_gnd_control.bearing_error() < 0){
+						_act_controls.control[actuator_controls_s::INDEX_YAW] = -1;
 					} else {
 						_pos_ctrl_state = GOTO_WAYPOINT;
 					}
