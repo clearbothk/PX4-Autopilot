@@ -290,7 +290,8 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 						_act_controls.control[actuator_controls_s::INDEX_THROTTLE] = mission_throttle;
 						float desired_r = ground_speed_2d.norm_squared() / math::abs_t(_gnd_control.nav_lateral_acceleration_demand());
 						float desired_theta = (0.5f * M_PI_F) - atan2f(desired_r, _param_wheel_base.get());
-						float control_effort = (desired_theta / _param_max_turn_angle.get()) * sign(_gnd_control.nav_lateral_acceleration_demand());
+						float control_effort = (desired_theta / _param_max_turn_angle.get()) * sign(
+									       _gnd_control.nav_lateral_acceleration_demand());
 						control_effort = math::constrain(control_effort, -1.0f, 1.0f);
 						_act_controls.control[actuator_controls_s::INDEX_YAW] = control_effort;
 					}
@@ -314,7 +315,9 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 			break;
 
 		case TURNING : {
-				_act_controls.control[actuator_controls_s::INDEX_THROTTLE] = 0.0f;
+				// Assign a small throttle so to avoid jitter while turning.
+				// TODO: Still needs verification if this is actually a good solut
+				_act_controls.control[actuator_controls_s::INDEX_THROTTLE] = 0.05f;
 				// When the robot is within the threshold for turning mode, start going to the next waypoint
 
 				// Update the parameters while turning.
@@ -323,6 +326,7 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 				// Use the bearing error to define when to stop turning the robot.
 				if (math::abs_t(_gnd_control.bearing_error()) <  M_PI_F * 0.25f) {
 					_pos_ctrl_state = GOTO_WAYPOINT;
+
 				} else {
 					// The lateral acceleration helps to calculate whether the robot needs to turn left or right.
 					int turning_direction = sign(_gnd_control.nav_lateral_acceleration_demand());
