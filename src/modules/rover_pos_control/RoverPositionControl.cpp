@@ -319,16 +319,14 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 
 				// Update the parameters while turning.
 				_gnd_control.navigate_waypoints(prev_wp, curr_wp, current_position, ground_speed_2d);
+
+				// Use the bearing error to define when to stop turning the robot.
 				if (math::abs_t(_gnd_control.bearing_error()) <  M_PI_F * 0.25f) {
 					_pos_ctrl_state = GOTO_WAYPOINT;
 				} else {
-					if ( _gnd_control.bearing_error() > 0) {
-						_act_controls.control[actuator_controls_s::INDEX_YAW] = 1;
-					} else if(_gnd_control.bearing_error() < 0){
-						_act_controls.control[actuator_controls_s::INDEX_YAW] = -1;
-					} else {
-						_pos_ctrl_state = GOTO_WAYPOINT;
-					}
+					// The lateral acceleration helps to calculate whether the robot needs to turn left or right.
+					int turning_direction = sign(_gnd_control.nav_lateral_acceleration_demand());
+					_act_controls.control[actuator_controls_s::INDEX_YAW] = turning_direction;
 				}
 			}
 			break;
