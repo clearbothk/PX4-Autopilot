@@ -319,13 +319,17 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 			break;
 
 		case TURNING : {
+				Vector2f curr_wp_local = _global_local_proj_ref.project(curr_wp(0), curr_wp(1));
+				Vector2f prev_wp_local = _global_local_proj_ref.project(prev_wp(0),
+							 prev_wp(1));
+				Vector2f curr_pos_local{_local_pos.x, _local_pos.y};
 				// Assign a small throttle so to avoid jitter while turning.
 				// TODO: Still needs verification if this is actually a good solut
 				_act_controls.control[actuator_controls_s::INDEX_THROTTLE] = 0.05f;
 				// When the robot is within the threshold for turning mode, start going to the next waypoint
 
 				// Update the parameters while turning.
-				_gnd_control.navigate_waypoints(prev_wp, curr_wp, current_position, ground_speed_2d);
+				_gnd_control.navigate_waypoints(prev_wp_local, curr_wp_local, curr_pos_local, ground_speed_2d);
 
 				// Use the bearing error to define when to stop turning the robot.
 				if (math::abs_t(_gnd_control.bearing_error()) <  M_PI_F * 0.25f) {
