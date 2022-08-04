@@ -46,7 +46,6 @@ rtps:
     receive: true
   - msg:     position_setpoint_triplet
     receive: true
-    send:    true
   - msg:     telemetry_status
     receive: true
   - msg:     timesync
@@ -90,7 +89,7 @@ rtps:
     send:    true
   - msg:     sensor_combined
     send:    true
-  - msg:     vehicle_gps_position
+  - msg:     vehicle_global_position
     send:    true
   - msg:     vehicle_local_position
     send:    true
@@ -101,4 +100,6 @@ rtps:
   - msg:     position_controller_status
     send:    true
   - msg:     px4io_status
+    send:    true
+  - msg:     sensor_gps
     send:    true
