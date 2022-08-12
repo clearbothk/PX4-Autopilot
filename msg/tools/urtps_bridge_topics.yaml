@@ -102,3 +102,25 @@ rtps:
     send:    true
   - msg:     sensor_gps
     send:    true
+  - msg:     actuator_servos_trim
+    receive: true
+  - msg:     actuator_servos
+    receive: true
+  - msg:     actuator_motors
+    receive: true
+  - msg:     test_motor
+    receive: true
+  - msg:     actuator_controls
+    receive: true
+  - msg:     actuator_controls_0 # multi-topic / alias of vehicle_odometry
+    base:    actuator_controls
+    receive: true
+  - msg:     actuator_controls_1 # multi-topic / alias of vehicle_odometry
+    base:    actuator_controls
+    receive: true
+  - msg:     actuator_controls_2 # multi-topic / alias of vehicle_odometry
+    base:    actuator_controls
+    receive: true
+  - msg:     actuator_controls_3 # multi-topic / alias of vehicle_odometry
+    base:    actuator_controls
+    receive: true
