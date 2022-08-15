@@ -70,6 +70,7 @@
 #include <px4_platform_common/time.h>
 #include <circuit_breaker/circuit_breaker.h>
 #include <systemlib/mavlink_log.h>
+#include <drivers/drv_pwm_output.h>
 
 #include <math.h>
 #include <float.h>
@@ -1552,13 +1553,16 @@ Commander::handle_command(const vehicle_command_s &cmd)
 		}
 
 	case vehicle_command_s::VEHICLE_CMD_DO_SET_PARAMETER: {
-			param_set((int)cmd.param1, &(cmd.param2));
+			param_set((int)cmd.param1, (cmd.param2));
 			break;
 		}
 
+	case vehicle_command_s::VEHICLE_CMD_CUSTOM_0: {
+                        up_pwm_servo_set((int)cmd.param1, (int)cmd.param2);
+			break;
+                }
 
-	case vehicle_command_s::VEHICLE_CMD_START_RX_PAIR:
-	case vehicle_command_s::VEHICLE_CMD_CUSTOM_0:
+        case vehicle_command_s::VEHICLE_CMD_START_RX_PAIR:
 	case vehicle_command_s::VEHICLE_CMD_CUSTOM_1:
 	case vehicle_command_s::VEHICLE_CMD_CUSTOM_2:
 	case vehicle_command_s::VEHICLE_CMD_DO_MOUNT_CONTROL:
