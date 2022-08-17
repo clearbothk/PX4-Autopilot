@@ -1527,7 +1527,11 @@ Commander::handle_command(const vehicle_command_s &cmd)
 		}
 
 	case vehicle_command_s::VEHICLE_CMD_DO_SET_PARAMETER: {
-			param_set((int)cmd.param1, &(cmd.param2));
+                        char velParam[15] = "GND_SPEED_TRIM";
+                        //int paramId = param_get_used_index(param_find(velParam));
+                        //param_set(int(751), &paramId);
+                        float value = cmd.param1;
+			param_set(param_find(velParam), &(value));
 			break;
 		}
 
