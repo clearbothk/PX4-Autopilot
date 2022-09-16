@@ -285,3 +285,15 @@ PARAM_DEFINE_FLOAT(GND_MAX_ANG, 0.7854f);
  * @group Rover Position Control
  */
 PARAM_DEFINE_FLOAT(GND_MAN_Y_MAX, 150.0f);
+
+/**
+ * Turning rate for steering
+ *
+ * @unit deg/s
+ * @min 0.0
+ * @max 1
+ * @decimal 2
+ * @increment 0.1
+ * @group Rover Position Control
+ */
+PARAM_DEFINE_FLOAT(ROVER_POS_TURNING_RATE, 1.0f);
