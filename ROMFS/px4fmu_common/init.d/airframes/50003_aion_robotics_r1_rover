@@ -76,7 +76,7 @@ param set-default RBCLW_ADDRESS 128
 param set-default RBCLW_SER_CFG 104
 # Start this driver after setting parameters, because the driver uses some of those parameters.
 # roboclaw start /dev/ttyS3
-param set-default RTPS_CONFIG 102
+param set-default RTPS_CONFIG 103
 param set-default RTPS_RATE 1000000
 
 # Set mixer
