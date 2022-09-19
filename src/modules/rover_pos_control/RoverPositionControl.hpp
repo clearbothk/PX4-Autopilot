@@ -196,7 +196,7 @@ private:
 		(ParamFloat<px4::params::GND_MAX_ANG>) _param_max_turn_angle,
 		(ParamFloat<px4::params::GND_MAN_Y_MAX>) _param_gnd_man_y_max,
 		(ParamFloat<px4::params::NAV_LOITER_RAD>) _param_nav_loiter_rad,	/**< loiter radius for Rover */
-		(ParamFloat<px4::params::ROVER_POS_TURNING_RATE>) _param_rover_pos_turning_rate
+		(ParamFloat<px4::params::TURNING_RATE>) _param_turning_rate
 	)
 
 	/**

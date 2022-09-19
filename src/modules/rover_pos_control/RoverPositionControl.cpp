@@ -338,7 +338,7 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 				} else {
 					// The lateral acceleration helps to calculate whether the robot needs to turn left or right.
 					int turning_direction = sign(_gnd_control.nav_lateral_acceleration_demand());
-					_act_controls.control[actuator_controls_s::INDEX_YAW] = turning_direction * _param_rover_pos_turning_rate;
+					_act_controls.control[actuator_controls_s::INDEX_YAW] = turning_direction * _param_turning_rate.get();
 				}
 			}
 			break;
