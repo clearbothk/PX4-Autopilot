@@ -113,6 +113,7 @@ rtps:
     receive: true
   - msg:     actuator_controls
     receive: true
+    send:    true
   - msg:     actuator_controls_0 # multi-topic / alias of vehicle_odometry
     base:    actuator_controls
     receive: true
@@ -126,3 +127,4 @@ rtps:
   - msg:     actuator_controls_3 # multi-topic / alias of vehicle_odometry
     base:    actuator_controls
     receive: true
+    send:    true
