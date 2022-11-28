@@ -1562,7 +1562,6 @@ Commander::handle_command(const vehicle_command_s &cmd)
 		}
 
 	case vehicle_command_s::VEHICLE_CMD_CUSTOM_0: {
-                        up_pwm_servo_set((int)cmd.param1, (int)cmd.param2);
 			break;
                 }
 
