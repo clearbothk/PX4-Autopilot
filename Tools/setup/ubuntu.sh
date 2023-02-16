@@ -123,8 +123,8 @@ if [[ $INSTALL_NUTTX == "true" ]]; then
 		bison \
 		build-essential \
 		flex \
-		g++-9-multilib-arm-linux-gnueabihf \
-		gcc-9-multilib-arm-linux-gnueabihf \
+		g++-multilib \
+		gcc-multilib \
 		gdb-multiarch \
 		genromfs \
 		gettext \
