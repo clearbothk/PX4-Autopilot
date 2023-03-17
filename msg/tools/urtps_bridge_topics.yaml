@@ -114,17 +114,16 @@ rtps:
   - msg:     actuator_controls
     receive: true
     send:    true
-  - msg:     actuator_controls_0 # multi-topic / alias of vehicle_odometry
-    base:    actuator_controls
-    receive: true
-  - msg:     actuator_controls_1 # multi-topic / alias of vehicle_odometry
-    base:    actuator_controls
-    receive: true
-    send:    true
-  - msg:     actuator_controls_2 # multi-topic / alias of vehicle_odometry
-    base:    actuator_controls
-    receive: true
   - msg:     actuator_controls_3 # multi-topic / alias of vehicle_odometry
     base:    actuator_controls
     receive: true
     send:    true
+  - msg:     actuator_controls_0 # multi-topic / alias of vehicle_odometry
+    base:    actuator_controls
+    receive: true
+    send:    true
+  - msg:     sensor_gyro
+    send:    true    
+  - msg:     vehicle_acceleration
+    send:    true
+    
