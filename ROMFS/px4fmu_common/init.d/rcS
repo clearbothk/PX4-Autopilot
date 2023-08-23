@@ -55,7 +55,7 @@ set VEHICLE_TYPE none
 # Print full system version.
 #
 ver all
-
+usleep 30000000
 #
 # Try to mount the microSD card.
 #
