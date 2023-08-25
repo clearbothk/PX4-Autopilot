@@ -123,8 +123,8 @@ if [[ $INSTALL_NUTTX == "true" ]]; then
 		bison \
 		build-essential \
 		flex \
-		g++-7-multilib-arm-linux-gnueabihf \
-		gcc-7-multilib-arm-linux-gnueabihf \
+		g++-9-multilib-arm-linux-gnueabihf \
+		gcc-9-multilib-arm-linux-gnueabihf \
 		gdb-multiarch \
 		genromfs \
 		gettext \
@@ -236,7 +236,6 @@ if [[ $INSTALL_SIM == "true" ]]; then
 		libgazebo$gazebo_version-dev \
 		libgstreamer-plugins-base1.0-dev \
 		libimage-exiftool-perl \
-		libopencv-dev \
 		libxml2-utils \
 		pkg-config \
 		protobuf-compiler \
