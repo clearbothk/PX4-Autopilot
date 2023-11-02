@@ -154,6 +154,7 @@ private:
 
 	enum POS_CTRLSTATES {
 		GOTO_WAYPOINT,
+    TURNING,
 		STOPPING
 	} _pos_ctrl_state {STOPPING};			/// Position control state machine
 

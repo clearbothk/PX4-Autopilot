@@ -43,6 +43,8 @@
 
 
 #include "RoverPositionControl.hpp"
+#include "mathlib/math/SearchMin.hpp"
+#include "matrix/helper_functions.hpp"
 #include <lib/geo/geo.h>
 
 using namespace matrix;
@@ -284,6 +286,22 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 				}
 			}
 			break;
+    case TURNING: {
+        Vector2f curr_pos_local{_local_pos.x, _local_pos.y};
+        Vector2f curr_wp_local = _global_local_proj_ref.project(curr_wp(0), curr_wp(1));
+        Vector2f prev_wp_local = _global_local_proj_ref.project(prev_wp(0), prev_wp(1));
+
+        _throttle_control = 0.05f;
+				_gnd_control.navigate_waypoints(prev_wp_local, curr_wp_local, curr_pos_local, ground_speed_2d);
+
+        if(math::abs_t(_gnd_control.target_bearing()) <  M_PI_F * 0.25f) {
+          _pos_ctrl_state = GOTO_WAYPOINT;
+        } else {
+          int turning_direction = sign(_gnd_control.target_bearing()); // Changes (-pi, +pi) to (-1, +1)
+          _yaw_control = turning_direction;
+        }
+      }
+      break;
 
 		case STOPPING: {
 				_yaw_control = 0.0f;
