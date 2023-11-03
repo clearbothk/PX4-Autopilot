@@ -45,6 +45,7 @@
 #include "RoverPositionControl.hpp"
 #include "mathlib/math/SearchMin.hpp"
 #include "matrix/helper_functions.hpp"
+#include "px4_platform_common/defines.h"
 #include <lib/geo/geo.h>
 
 using namespace matrix;
@@ -275,17 +276,21 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
 								 prev_wp(1));
 					_gnd_control.navigate_waypoints(prev_wp_local, curr_wp_local, curr_pos_local, ground_speed_2d);
 
-					_throttle_control = mission_throttle;
-
-					float desired_r = ground_speed_2d.norm_squared() / math::abs_t(_gnd_control.nav_lateral_acceleration_demand());
-					float desired_theta = (0.5f * M_PI_F) - atan2f(desired_r, _param_wheel_base.get());
-					float control_effort = (desired_theta / _param_max_turn_angle.get()) * sign(
-								       _gnd_control.nav_lateral_acceleration_demand());
-					control_effort = math::constrain(control_effort, -1.0f, 1.0f);
-					_yaw_control = control_effort;
-				}
+          if(math::abs_t(_gnd_control.bearing_error()) > M_PI_F * 0.25f) {
+            _pos_ctrl_state = TURNING;
+          } else {
+            _throttle_control = mission_throttle;
+            float desired_r = ground_speed_2d.norm_squared() / math::abs_t(_gnd_control.nav_lateral_acceleration_demand());
+            float desired_theta = (0.5f * M_PI_F) - atan2f(desired_r, _param_wheel_base.get());
+            float control_effort = (desired_theta / _param_max_turn_angle.get()) * sign(
+                _gnd_control.nav_lateral_acceleration_demand());
+            control_effort = math::constrain(control_effort, -1.0f, 1.0f);
+            _yaw_control = control_effort;
+          }
+        }
 			}
 			break;
+
     case TURNING: {
         Vector2f curr_pos_local{_local_pos.x, _local_pos.y};
         Vector2f curr_wp_local = _global_local_proj_ref.project(curr_wp(0), curr_wp(1));
@@ -294,7 +299,7 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
         _throttle_control = 0.05f;
 				_gnd_control.navigate_waypoints(prev_wp_local, curr_wp_local, curr_pos_local, ground_speed_2d);
 
-        if(math::abs_t(_gnd_control.target_bearing()) <  M_PI_F * 0.25f) {
+        if(math::abs_t(_gnd_control.bearing_error()) <  M_PI_F * 0.25f) {
           _pos_ctrl_state = GOTO_WAYPOINT;
         } else {
           int turning_direction = sign(_gnd_control.target_bearing()); // Changes (-pi, +pi) to (-1, +1)

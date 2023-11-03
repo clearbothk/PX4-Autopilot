@@ -90,6 +90,13 @@ public:
 	 */
 	float target_bearing() { return _target_bearing; }
 
+
+  /**
+   * Bearing difference between the current position and the target waypoint.
+   * Added by utkarsh867 for in-position turning in rover position control
+   */
+  float bearing_error() { return _bearing_error; }
+
 	/**
 	 * Get the current crosstrack error.
 	 *
@@ -129,6 +136,7 @@ private:
 	float _nav_bearing{0.0f};		///< bearing to L1 reference point
 	float _crosstrack_error{0.0f};	///< crosstrack error in meters
 	float _target_bearing{0.0f};		///< the heading setpoint
+  float _bearing_error{0.0f};     // Required for in-position turning
 
 	float _L1_period{25.0f};		///< L1 tracking period in seconds
 	float _L1_damping{0.75f};		///< L1 damping ratio

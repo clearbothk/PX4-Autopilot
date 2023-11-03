@@ -54,6 +54,7 @@ ECL_L1_Pos_Controller::navigate_waypoints(const Vector2f &vector_A, const Vector
 {
 	/* this follows the logic presented in [1] */
 	float eta = 0.0f;
+  _bearing_error = eta;
 
 	/* get the direction between the last (visited) and next waypoint */
 	Vector2f vector_P_to_B = vector_B - vector_curr_position;
@@ -176,6 +177,7 @@ ECL_L1_Pos_Controller::navigate_waypoints(const Vector2f &vector_A, const Vector
 	eta = math::constrain(eta, (-M_PI_F) / 2.0f, +M_PI_F / 2.0f);
 	_lateral_accel = _K_L1 * ground_speed * ground_speed / _L1_distance * sinf(eta);
 
+  _bearing_error = eta; // Update the latest error - used for in-position turning
 }
 
 void ECL_L1_Pos_Controller::set_l1_period(float period)
