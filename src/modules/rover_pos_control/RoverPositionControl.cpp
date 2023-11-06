@@ -302,7 +302,7 @@ RoverPositionControl::control_position(const matrix::Vector2d &current_position,
         if(math::abs_t(_gnd_control.bearing_error()) <  M_PI_F * 0.25f) {
           _pos_ctrl_state = GOTO_WAYPOINT;
         } else {
-          int turning_direction = sign(_gnd_control.target_bearing()); // Changes (-pi, +pi) to (-1, +1)
+          int turning_direction = sign(_gnd_control.nav_lateral_acceleration_demand()); // Changes to (-1, +1)
           _yaw_control = turning_direction;
         }
       }
