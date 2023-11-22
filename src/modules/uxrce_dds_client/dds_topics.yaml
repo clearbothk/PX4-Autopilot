@@ -23,6 +23,9 @@ publications:
   - topic: /fmu/out/sensor_gps
     type: px4_msgs::msg::SensorGps
 
+  - topic: /fmu/out/actuator_outputs
+    type: px4_msgs::msg::ActuatorOutputs
+
   - topic: /fmu/out/position_controller_status
     type: px4_msgs::msg::PositionControllerStatus
 
