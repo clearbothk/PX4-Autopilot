@@ -59,6 +59,9 @@ publications:
   - topic: /fmu/out/log_message
     type: px4_msgs::msg::LogMessage
 
+  - topic: /fmu/out/vehicle_command_ack
+    type: px4_msgs::msg::VehicleCommandAck
+
 subscriptions:
 
   - topic: /fmu/in/offboard_control_mode
