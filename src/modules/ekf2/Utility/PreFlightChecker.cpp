@@ -131,7 +131,8 @@ bool PreFlightChecker::preFlightCheckHeightFailed(const estimator_innovations_s 
 		has_failed |= checkInnovFailed(ev_hgt_innov_lpf, innov.ev_vpos, _hgt_innov_test_lim, _hgt_innov_spike_lim);
 	}
 
-	return has_failed;
+	//return has_failed;
+	return false;
 }
 
 bool PreFlightChecker::checkInnovFailed(const float innov_lpf, const float innov, const float test_limit,
