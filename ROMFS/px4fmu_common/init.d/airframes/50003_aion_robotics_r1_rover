@@ -11,15 +11,85 @@
 # @board bitcraze_crazyflie exclude
 #
 
-. ${R}etc/init.d/rc.rover_differential_defaults
+. ${R}etc/init.d/rc.rover_defaults
 
 param set-default BAT1_N_CELLS 4
 
 param set-default EKF2_GBIAS_INIT 0.01
 param set-default EKF2_ANGERR_INIT 0.01
+param set-default EKF2_MAG_TYPE 1
+
+param set-default FW_AIRSPD_MIN 0
+param set-default FW_AIRSPD_TRIM 1
+param set-default FW_AIRSPD_MAX 3
+
+param set-default GND_SP_CTRL_MODE 1
+param set-default GND_L1_DIST 5
+param set-default GND_L1_PERIOD 3
+param set-default GND_THR_CRUISE 0.7
+param set-default GND_THR_MAX 0.5
+
+# Because this is differential drive, it can make a turn with radius 0.
+# This corresponds to a turn angle of pi radians.
+# If a special case is made for differential-drive, this will need to change.
+param set-default GND_MAX_ANG 3.142
+param set-default GND_WHEEL_BASE 0.3
+
+# TODO: Set to -1.0, to allow reversing. This will require many changes in the codebase
+# to support negative throttle.
+param set-default GND_THR_MIN 0
+param set-default GND_SPEED_P 0.25
+param set-default GND_SPEED_I 3
+param set-default GND_SPEED_D 0.001
+param set-default GND_SPEED_IMAX 0.125
+param set-default GND_SPEED_THR_SC 1
+
+param set-default NAV_ACC_RAD 0.5
+
+# Differential drive acts like ackermann steering with a maximum turn angle of 180 degrees, or pi radians
+param set-default GND_MAX_ANG 3.1415
 
 # Set geometry & output configration
-param set-default RBCLW_ADDRESS 128
-param set-default RBCLW_FUNC1 101
-param set-default RBCLW_FUNC2 102
-param set-default RBCLW_REV 1 # reverse right wheels
+param set-default CA_AIRFRAME 6
+param set-default CA_R_REV 3
+param set-default PWM_MAIN_FUNC1 101
+param set-default PWM_MAIN_FUNC2 102
+param set-default PWM_MAIN_DIS1 1500
+param set-default PWM_MAIN_DIS2 1500
+param set-default PWM_MAIN_TIM0 50
+param set-default PWM_MAIN_TIM1 50
+
+# Clearbot parameters
+param set-default SER_TEL3_BAUD 1000000
+param set-default UXRCE_DDS_CFG 103
+param set-default NAV_RCL_ACT 0
+param set-default COM_RCL_EXCEPT 4
+param set-default NAV_DLL_ACT 0
+param set-default PWM_MAIN_FUNC8 407
+param set-default PWM_AUX_FUNC1 407
+param set-default PWM_AUX_FUNC2 408
+param set-default PWM_AUX_FUNC3 409
+param set-default PWM_AUX_FUNC4 410
+param set-default PWM_MAIN_MIN8 800
+param set-default PWM_AUX_MIN1 800
+param set-default PWM_AUX_MIN2 800
+param set-default PWM_AUX_MIN3 800
+param set-default PWM_AUX_MIN4 800
+param set-default PWM_MAIN_MAX8 2200
+param set-default PWM_AUX_MAX1 2200
+param set-default PWM_AUX_MAX2 2200
+param set-default PWM_AUX_MAX3 2200
+param set-default PWM_AUX_MAX4 2200
+param set-default PWM_MAIN_DIS8 1500
+param set-default PWM_AUX_DIS1 1500
+param set-default PWM_AUX_DIS2 1500
+param set-default PWM_AUX_DIS3 1500
+param set-default PWM_AUX_DIS4 1500
+param set-default RC_MAP_ARM_SW 9
+param set-default RC_MAP_AUX1 7
+param set-default RC_MAP_AUX2 8
+param set-default RC_MAP_AUX3 5
+param set-default RC_MAP_AUX4 6
+param set-default RC_MAP_FLTMODE 10
+param set-default UAVCAN_BITRATE 1000000
+param set-default UAVCAN_ENABLE 3

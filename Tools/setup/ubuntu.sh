@@ -258,10 +258,8 @@ if [[ $INSTALL_SIM == "true" ]]; then
 		libeigen3-dev \
 		libgstreamer-plugins-base1.0-dev \
 		libimage-exiftool-perl \
-		libopencv-dev \
 		libxml2-utils \
 		pkg-config \
-		protobuf-compiler \
 		;
 
 	if sudo dmidecode -t system | grep -q "Manufacturer: VMware, Inc." ; then
