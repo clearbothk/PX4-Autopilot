@@ -9,3 +9,11 @@ param set-default CA_AIRFRAME 6 # Rover (Differential)
 param set-default CA_R_REV 3 # Right and left motors reversible
 
 param set-default EKF2_MAG_TYPE 1 # make sure magnetometer is fused even when not flying
+
+param set-default MIS_TAKEOFF_ALT 0.01
+
+param set-default NAV_ACC_RAD 2
+param set-default NAV_LOITER_RAD 2
+
+# Temporary.
+param set-default NAV_FW_ALT_RAD 1000
