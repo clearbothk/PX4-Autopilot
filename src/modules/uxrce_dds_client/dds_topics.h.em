@@ -30,7 +30,7 @@ import os
 // Subscribers for messages to send
 struct SendTopicsSubs {
 @[    for pub in publications]@
-	uORB::Subscription @(pub['topic_simple'])_sub{ORB_ID(@(pub['topic_simple']))};
+	uORB::Subscription @(pub['topic_simple'])_sub{ORB_ID(@(pub['topic_simple'])), @(pub.get('orb_multi_id', 0))};
 	uxrObjectId @(pub['topic_simple'])_data_writer{};
 @[    end for]@
 

@@ -25,6 +25,7 @@ publications:
 
   - topic: /fmu/out/actuator_outputs
     type: px4_msgs::msg::ActuatorOutputs
+    orb_multi_id: 2
 
   - topic: /fmu/out/position_controller_status
     type: px4_msgs::msg::PositionControllerStatus
