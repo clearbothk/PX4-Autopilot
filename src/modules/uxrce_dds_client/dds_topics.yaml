@@ -14,6 +14,9 @@ publications:
   - topic: /fmu/out/mode_completed
     type: px4_msgs::msg::ModeCompleted
 
+  - topic: /fmu/out/actuator_outputs
+    type: px4_msgs::msg::ActuatorOutputs
+
   - topic: /fmu/out/battery_status
     type: px4_msgs::msg::BatteryStatus
 
@@ -34,6 +37,9 @@ publications:
 
   - topic: /fmu/out/position_setpoint_triplet
     type: px4_msgs::msg::PositionSetpointTriplet
+
+  - topic: /fmu/out/pure_pursuit_status
+    type: px4_msgs::msg::PurePursuitStatus
 
   - topic: /fmu/out/sensor_combined
     type: px4_msgs::msg::SensorCombined
@@ -153,6 +159,12 @@ subscriptions:
 
   - topic: /fmu/in/vehicle_torque_setpoint
     type: px4_msgs::msg::VehicleTorqueSetpoint
+
+  - topic: /fmu/in/rover_throttle_setpoint
+    type: px4_msgs::msg::RoverThrottleSetpoint
+
+  - topic: /fmu/in/rover_steering_setpoint
+    type: px4_msgs::msg::RoverSteeringSetpoint
 
   - topic: /fmu/in/actuator_motors
     type: px4_msgs::msg::ActuatorMotors
