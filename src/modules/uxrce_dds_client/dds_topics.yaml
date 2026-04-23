@@ -17,6 +17,11 @@ publications:
   - topic: /fmu/out/actuator_outputs
     type: px4_msgs::msg::ActuatorOutputs
 
+  - topic: /fmu/out/actuator_outputs
+    type: px4_msgs::msg::ActuatorOutputs
+    instance: 2
+    topic_suffix: /uavcan
+
   - topic: /fmu/out/battery_status
     type: px4_msgs::msg::BatteryStatus
 
