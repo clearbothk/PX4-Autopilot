@@ -95,13 +95,21 @@ def process_message_type(msg_type):
     msg_type['dds_type'] = msg_type['type'].replace("::msg::", "::msg::dds_::") + "_"
     # topic_simple: eg vehicle_status
     msg_type['topic_simple'] = msg_type['topic'].split('/')[-1]
-    # orb_topic_simple: uORB topic name (may differ from DDS topic name for multi-instance aliases)
-    msg_type['orb_topic_simple'] = msg_type.get('orb_topic', msg_type['topic_simple'])
+
+def process_message_instance(msg_type):
+    if 'instance' in msg_type:
+        if not (type(msg_type['instance']) is int and msg_type['instance'] >= 0):
+            raise TypeError("`instance` must be a non negative integer")
+        suffix = msg_type.get('topic_suffix', str(msg_type['instance']))
+        msg_type['topic'] = f"{msg_type['topic']}{suffix}"
+    else:
+        msg_type['instance'] = 0
 
 pubs_not_empty = msg_map['publications'] is not None
 if pubs_not_empty:
     for p in msg_map['publications']:
         process_message_type(p)
+        process_message_instance(p)
 
 merged_em_globals['publications'] = msg_map['publications'] if pubs_not_empty else []
 

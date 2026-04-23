@@ -73,8 +73,8 @@ struct SendSubscription {
 struct SendTopicsSubs {
 	SendSubscription send_subscriptions[@(len(publications))] = {
 @[    for pub in publications]@
-			{ ORB_ID(@(pub['orb_topic_simple'])),
-			  @(pub.get('orb_multi_id', 0)),
+			{ ORB_ID(@(pub['topic_simple'])),
+			  @(pub['instance']),
 			  uxr_object_id(0, UXR_INVALID_ID),
 			  "@(pub['dds_type'])",
 			  "@(pub['topic'])",
