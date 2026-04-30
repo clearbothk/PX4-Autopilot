@@ -88,6 +88,9 @@ publications:
   - topic: /fmu/out/vtol_vehicle_status
     type: px4_msgs::msg::VtolVehicleStatus
 
+  - topic: /fmu/out/param_bridge_response
+    type: clearbot_param_msgs::msg::ParamBridgeResponse
+
   - topic: /fmu/out/home_position
     type: px4_msgs::msg::HomePosition
 
@@ -95,6 +98,9 @@ publications:
 subscriptions:
   - topic: /fmu/in/register_ext_component_request
     type: px4_msgs::msg::RegisterExtComponentRequest
+
+  - topic: /fmu/in/param_bridge_request
+    type: clearbot_param_msgs::msg::ParamBridgeRequest
 
   - topic: /fmu/in/unregister_ext_component
     type: px4_msgs::msg::UnregisterExtComponent

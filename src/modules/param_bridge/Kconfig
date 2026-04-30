@@ -1,0 +1,5 @@
+menuconfig MODULES_PARAM_BRIDGE
+	bool "param_bridge"
+	default n
+	---help---
+		Enable support for param_bridge
