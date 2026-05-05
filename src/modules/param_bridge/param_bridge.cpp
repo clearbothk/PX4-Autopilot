@@ -25,15 +25,15 @@ public:
   static int custom_command(int argc, char *argv[]);
   static int print_usage(const char *reason = nullptr);
 
-  void handle_get_request(param_bridge_request_s *req, param_t *p,
-                          param_bridge_response_s *res);
-  void handle_set_request(param_bridge_request_s *req, param_t *p,
-                          param_bridge_response_s *res);
-
   bool init();
 
 private:
   void Run() override;
+
+  void handle_get_request(param_bridge_request_s *req, param_t *p,
+                          param_bridge_response_s *res);
+  void handle_set_request(param_bridge_request_s *req, param_t *p,
+                          param_bridge_response_s *res);
 
   uORB::Subscription _request_sub{ORB_ID(param_bridge_request)};
   uORB::Publication<param_bridge_response_s> _response_pub{
@@ -41,7 +41,6 @@ private:
 };
 
 bool ParamBridge::init() {
-  // TODO: Explain why this is really needed?
   ScheduleOnInterval(10_ms);
   return true;
 }
@@ -110,9 +109,9 @@ void ParamBridge::Run() {
   }
 
   param_bridge_request_s req;
-  param_bridge_response_s res{};
 
   while (_request_sub.update(&req)) {
+    param_bridge_response_s res{};
     res.timestamp = hrt_absolute_time();
     memcpy(res.param_name, req.param_name, sizeof(res.param_name));
     res.param_name[sizeof(res.param_name) - 1] = '\0';
