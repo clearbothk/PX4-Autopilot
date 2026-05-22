@@ -634,6 +634,8 @@ else
 		zenoh start
 	fi
 
+	param_bridge start
+
 #
 # End of autostart.
 #
