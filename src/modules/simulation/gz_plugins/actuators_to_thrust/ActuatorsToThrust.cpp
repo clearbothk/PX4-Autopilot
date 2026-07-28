@@ -43,8 +43,8 @@ void ActuatorsToThrust::Configure(const gz::sim::Entity &_entity,
 	std::string escTopic = "/" + modelName + "/command/motor_speed";
 
 
-	std::string rightThrustTopic = "/wamv/thrusters/right/thrust";
-	std::string leftThrustTopic = "/wamv/thrusters/left/thrust";
+	std::string rightThrustTopic = "/clearbot/thrusters/right/thrust";
+	std::string leftThrustTopic = "/clearbot/thrusters/left/thrust";
 
 	_rightThrustPub = _node.Advertise<gz::msgs::Double>(rightThrustTopic);
 	_leftThrustPub = _node.Advertise<gz::msgs::Double>(leftThrustTopic);
