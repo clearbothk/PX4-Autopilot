@@ -9,23 +9,9 @@ PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
 PX4_GZ_WORLD=${PX4_GZ_WORLD:=water}
 PX4_SIM_MODEL=${PX4_SIM_MODEL:=clearbot_boat}
 
-# TODO: the sydney_regatta world's wind/buoyancy/wave-publisher plugins and
-# its local "coast_waves" model still live in a separate vrx_ws checkout, not
-# vendored into this fork (unlike Surface/SimpleHydrodynamics, which were).
-# This path is local-machine-only and will not work for anyone else cloning
-# this repo until those plugins/models are vendored in properly. Harmless
-# no-op for the default "water" world.
-VRX_GZ_SHARE="/home/naman_clearbot/CURRENT_TASKS/SIMULATION_SETUP/vrx_ws/install/vrx_gz"
-if [ -d "${VRX_GZ_SHARE}" ]; then
-	export GZ_SIM_RESOURCE_PATH="${GZ_SIM_RESOURCE_PATH}:${VRX_GZ_SHARE}/share/vrx_gz/models"
-	export GZ_SIM_SYSTEM_PLUGIN_PATH="${GZ_SIM_SYSTEM_PLUGIN_PATH}:${VRX_GZ_SHARE}/lib"
-	export LD_LIBRARY_PATH="${VRX_GZ_SHARE}/lib:${LD_LIBRARY_PATH}"
-fi
-
 param set-default SIM_GZ_EN 1
 
 param set-default NAV_ACC_RAD 0.5
-param set-default UXRCE_DDS_AG_IP 3232235876
 # Differential Parameters (ported from 50002_clearbot_vehicle)
 param set-default RD_WHEEL_TRACK 0.3
 param set-default RD_MAX_THR_YAW_R 0.7

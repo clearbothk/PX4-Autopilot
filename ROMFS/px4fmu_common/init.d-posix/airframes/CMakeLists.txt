@@ -98,9 +98,7 @@ px4_add_romfs_files(
 
 	8011_gz_omnicopter
 
-	50003_gz_wamv
 	50004_gz_clearbot_boat
-	50005_gz_clearbot_boat_v4
 
 	10015_gazebo-classic_iris
 	10016_none_iris
