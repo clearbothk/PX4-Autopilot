@@ -10,7 +10,7 @@ PX4_GZ_WORLD=${PX4_GZ_WORLD:=water}
 PX4_SIM_MODEL=${PX4_SIM_MODEL:=clearbot_boat}
 
 param set-default SIM_GZ_EN 1
-
+param set-default UXRCE_DDS_AG_IP 3232235876
 param set-default NAV_ACC_RAD 0.5
 # Differential Parameters (ported from 50002_clearbot_vehicle)
 param set-default RD_WHEEL_TRACK 0.3
