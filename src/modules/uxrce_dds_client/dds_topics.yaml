@@ -188,3 +188,5 @@ subscriptions:
 
 # Create uORB::PublicationMulti
 subscriptions_multi:
+  - topic: /fmu/in/gps_inject_data
+    type: px4_msgs::msg::GpsInjectData
