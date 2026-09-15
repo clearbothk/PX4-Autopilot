@@ -1,0 +1,57 @@
+#!/bin/sh
+# @name Clearbot WAM-V (gz sim)
+# @type Rover
+# @class Rover
+
+. ${R}etc/init.d/rc.rover_differential_defaults
+
+PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
+PX4_GZ_WORLD=${PX4_GZ_WORLD:=water}
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=wamv}
+
+param set-default SIM_GZ_EN 1
+
+param set-default NAV_ACC_RAD 0.5
+param set-default UXRCE_DDS_AG_IP 3232235876
+# Differential Parameters (ported from 50002_clearbot_vehicle)
+param set-default RD_WHEEL_TRACK 0.3
+param set-default RD_MAX_THR_YAW_R 0.7
+param set-default RD_TRANS_DRV_TRN 0.785398
+param set-default RD_TRANS_TRN_DRV 0.139626
+
+# Rover Control Parameters
+param set-default RO_ACCEL_LIM 3
+param set-default RO_DECEL_LIM 4
+param set-default RO_JERK_LIM 5
+param set-default RO_MAX_THR_SPEED 1.9
+
+# Rover Rate Control Parameters
+param set-default RO_YAW_RATE_I 0.1
+param set-default RO_YAW_RATE_P 0.1
+param set-default RO_YAW_RATE_LIM 250
+param set-default RO_YAW_ACCEL_LIM 600
+param set-default RO_YAW_DECEL_LIM 600
+
+# Rover Attitude Control Parameters
+param set-default RO_YAW_P 2.5
+
+# Rover Position Control Parameters
+param set-default RO_SPEED_LIM 1.6
+param set-default RO_SPEED_I 0.01
+param set-default RO_SPEED_P 0.1
+
+# Pure Pursuit parameters
+param set-default PP_LOOKAHD_GAIN 1
+param set-default PP_LOOKAHD_MAX 10
+param set-default PP_LOOKAHD_MIN 1
+
+# Actuator mapping -> gz_bridge (drives the JointController actuator_number 0/1 we just wired)
+param set-default SIM_GZ_WH_FUNC1 101 # right thruster
+param set-default SIM_GZ_WH_MIN1 70
+param set-default SIM_GZ_WH_MAX1 130
+param set-default SIM_GZ_WH_DIS1 100
+
+param set-default SIM_GZ_WH_FUNC2 102 # left thruster
+param set-default SIM_GZ_WH_MIN2 70
+param set-default SIM_GZ_WH_MAX2 130
+param set-default SIM_GZ_WH_DIS2 100
